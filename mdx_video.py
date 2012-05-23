@@ -128,8 +128,9 @@ u'<p><object data="http://www.gametrailers.com/remote_wrap.php?mid=58079" height
 """
 
 import markdown
+from markdown.util import etree
 
-version = "0.1.6"
+version = "0.1.7"
 
 class VideoExtension(markdown.Extension):
     def __init__(self, configs):
@@ -229,7 +230,7 @@ class Yahoo(markdown.inlinepatterns.Pattern):
         width = self.ext.config['yahoo_width'][0]
         height = self.ext.config['yahoo_height'][0]
         obj = flash_object(url, width, height)
-        param = markdown.etree.Element('param')
+        param = etree.Element('param')
         param.set('name', 'flashVars')
         param.set('value', "id=%s&vid=%s" % (m.group('yahooid'),
                 m.group('yahoovid')))
@@ -244,20 +245,20 @@ class Youtube(markdown.inlinepatterns.Pattern):
         return flash_object(url, width, height)
 
 def flash_object(url, width, height):
-        obj = markdown.etree.Element('object')
+        obj = etree.Element('object')
         obj.set('type', 'application/x-shockwave-flash')
         obj.set('width', width)
         obj.set('height', height)
         obj.set('data', url)
-        param = markdown.etree.Element('param')
+        param = etree.Element('param')
         param.set('name', 'movie')
         param.set('value', url)
         obj.append(param)
-        param = markdown.etree.Element('param')
+        param = etree.Element('param')
         param.set('name', 'allowFullScreen')
         param.set('value', 'true')
         obj.append(param)
-        #param = markdown.etree.Element('param')
+        #param = etree.Element('param')
         #param.set('name', 'allowScriptAccess')
         #param.set('value', 'sameDomain')
         #obj.append(param)
