@@ -7,5 +7,5 @@ setup(name='mdx_video',
     author="Italo Maia",
     url="https://github.com/italomaia/mdx-video",
     py_modules = ["mdx_video"],
-    requires = ['markdown>=2.0'],
+    requires = ['markdown (>=2.0)'],
     )
