@@ -1,7 +1,7 @@
 from distutils.core import setup
 from mdx_video import version
 
-setup(name='mdx-video',
+setup(name='mdx_video',
     version=version,
     description="Markdown 2.0 extension for easy video embedding",
     author="Italo Maia",
