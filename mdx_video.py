@@ -237,10 +237,21 @@ class Yahoo(markdown.inlinepatterns.Pattern):
 
 class Youtube(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://www.youtube.com/v/%s' % m.group('youtubeargs')
+        url = 'http://www.youtube.com/embed/%s' % m.group('youtubeargs')
         width = self.ext.config['youtube_width'][0]
         height = self.ext.config['youtube_height'][0]
-        return flash_object(url, width, height)
+        return render_iframe(url, width, height)
+
+
+def render_iframe(url, width, height):
+    iframe = etree.Element('iframe')
+    iframe.set('width', width)
+    iframe.set('height', height)
+    iframe.set('src', url)
+    iframe.set('allowfullscreen', 'allowfullscreen')
+    iframe.set('frameborder', '0')
+    return iframe
+
 
 def flash_object(url, width, height):
         obj = etree.Element('object')
@@ -256,13 +267,9 @@ def flash_object(url, width, height):
         param.set('name', 'allowFullScreen')
         param.set('value', 'true')
         obj.append(param)
-        #param = etree.Element('param')
-        #param.set('name', 'allowScriptAccess')
-        #param.set('value', 'sameDomain')
-        #obj.append(param)
         return obj
 
-def makeExtension(configs=None) :
+def makeExtension(configs=None):
     return VideoExtension(configs=configs)
 
 if __name__ == "__main__":
