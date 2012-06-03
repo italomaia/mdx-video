@@ -130,7 +130,7 @@ u'<p><object data="http://www.gametrailers.com/remote_wrap.php?mid=58079" height
 import markdown
 from markdown.util import etree
 
-version = "0.1.7"
+version = "0.1.7.1"
 
 class VideoExtension(markdown.Extension):
     def __init__(self, configs):
