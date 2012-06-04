@@ -28,7 +28,7 @@ with open(base_filename) as file:
 class MDTestCase(unittest.TestCase):
     def build_example(self, data):
         filename = "output/%s.html" % data['name']
-        output = markdown.markdown(data['text'], extensions=['mdx_video'])
+        output = markdown.markdown(data['text'], extensions=['video'])
 
         with open(os.path.join(BASE_DIR, filename), 'w') as file:
             file.write(html_text % {'content':output})
