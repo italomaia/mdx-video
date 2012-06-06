@@ -248,7 +248,7 @@ def render_iframe(url, width, height):
     iframe.set('width', width)
     iframe.set('height', height)
     iframe.set('src', url)
-    iframe.set('allowfullscreen', 'allowfullscreen')
+    iframe.set('allowfullscreen', 'true')
     iframe.set('frameborder', '0')
     return iframe
 
