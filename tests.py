@@ -12,6 +12,9 @@ base_filename = os.path.join(BASE_DIR, 'output/base.html')
 video_providers = {
     "youtube": "http://www.youtube.com/watch?v=mFi2B8nYdhc",
     "vimeo": "http://vimeo.com/43332921",
+    "bliptv": "http://blip.tv/play/AYOBwHQC.x",
+    "veoh": "http://www.veoh.com/watch/v352792842YDSmD5N",
+    "metacafe": "http://www.metacafe.com/watch/9168343/playstation_3_super_slim_250gb_game_of_the_year_edition_unboxing_unbox_therapy_extras/",
 }
 
 if not os.path.exists(OUTPUT_DIR):
