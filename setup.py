@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-version = '0.1.7.3'
+version = '0.1.7.5'
 
 setup(name='mdx_video',
     version=version,
