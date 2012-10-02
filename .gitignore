@@ -1,6 +1,7 @@
 dist
 build
 output
-.idea
 MANIFEST
+.idea
+*.sublime-*
 *.pyc
