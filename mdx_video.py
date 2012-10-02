@@ -163,7 +163,7 @@ class VideoExtension(markdown.Extension):
 
     def extendMarkdown(self, md, md_globals):
         self.add_inline(md, 'bliptv', Bliptv,
-            r'([^(]|^)http://(\w+\.|)blip.tv/file/get/(?P<bliptvfile>\S+.flv)')
+            r'([^(]|^)http://(\w+\.|)blip.tv/play/(?P<bliptvfile>\S+)')
         self.add_inline(md, 'dailymotion', Dailymotion,
             r'([^(]|^)http://www\.dailymotion\.com/(?P<dailymotionid>\S+)')
         self.add_inline(md, 'gametrailers', Gametrailers,
@@ -181,10 +181,10 @@ class VideoExtension(markdown.Extension):
 
 class Bliptv(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://blip.tv/scripts/flash/showplayer.swf?file=http://blip.tv/file/get/%s' % m.group('bliptvfile')
+        url = 'http://blip.tv/play/%s' % m.group('bliptvfile')
         width = self.ext.config['bliptv_width'][0]
         height = self.ext.config['bliptv_height'][0]
-        return flash_object(url, width, height)
+        return render_iframe(url, width, height)
 
 class Dailymotion(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
@@ -254,23 +254,25 @@ def render_iframe(url, width, height):
 
 
 def flash_object(url, width, height):
-        obj = etree.Element('object')
-        obj.set('type', 'application/x-shockwave-flash')
-        obj.set('width', width)
-        obj.set('height', height)
-        obj.set('data', url)
-        param = etree.Element('param')
-        param.set('name', 'movie')
-        param.set('value', url)
-        obj.append(param)
-        param = etree.Element('param')
-        param.set('name', 'allowFullScreen')
-        param.set('value', 'true')
-        obj.append(param)
-        return obj
+    obj = etree.Element('object')
+    obj.set('type', 'application/x-shockwave-flash')
+    obj.set('width', width)
+    obj.set('height', height)
+    obj.set('data', url)
+    param = etree.Element('param')
+    param.set('name', 'movie')
+    param.set('value', url)
+    obj.append(param)
+    param = etree.Element('param')
+    param.set('name', 'allowFullScreen')
+    param.set('value', 'true')
+    obj.append(param)
+    return obj
+
 
 def makeExtension(configs=None):
     return VideoExtension(configs=configs)
+
 
 if __name__ == "__main__":
     import doctest
