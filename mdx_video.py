@@ -176,7 +176,7 @@ class VideoExtension(markdown.Extension):
         self.add_inline(md, 'vimeo', Vimeo,
             r'([^(]|^)http://(www.|)vimeo\.com/(?P<vimeoid>\d+)\S*')
         self.add_inline(md, 'yahoo', Yahoo,
-            r'([^(]|^)http://video\.yahoo\.com/watch/(?P<yahoovid>\d+)/(?P<yahooid>\d+)')
+            r'([^(]|^)http://screen\.yahoo\.com/.+/?')
         self.add_inline(md, 'youtube', Youtube,
             r'([^(]|^)https?://www\.youtube\.com/watch\?\S*v=(?P<youtubeargs>[A-Za-z0-9_&=-]+)\S*')
 
@@ -232,16 +232,10 @@ class Vimeo(markdown.inlinepatterns.Pattern):
 
 class Yahoo(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = "http://d.yimg.com/static.video.yahoo.com/yep/YV_YEP.swf?ver=2.2.40"
+        url = m.string + '?format=embed&player_autoplay=false'
         width = self.ext.config['yahoo_width'][0]
         height = self.ext.config['yahoo_height'][0]
-        obj = flash_object(url, width, height)
-        param = etree.Element('param')
-        param.set('name', 'flashVars')
-        param.set('value', "id=%s&vid=%s" % (m.group('yahooid'),
-                m.group('yahoovid')))
-        obj.append(param)
-        return obj
+        return render_iframe(url, width, height)
 
 
 class Youtube(markdown.inlinepatterns.Pattern):
