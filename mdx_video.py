@@ -170,7 +170,7 @@ class VideoExtension(markdown.Extension):
         self.add_inline(md, 'gametrailers', Gametrailers,
             r'([^(]|^)http://www.gametrailers.com/video/[a-z0-9-]+/(?P<gametrailersid>\d+)')
         self.add_inline(md, 'metacafe', Metacafe,
-            r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>\S+)/')
+            r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>[^/]+)/[^/]+/')
         self.add_inline(md, 'veoh', Veoh,
             r'([^(]|^)http://www\.veoh\.com/\S*(#watch%3D|watch/)(?P<veohid>\w+)')
         self.add_inline(md, 'vimeo', Vimeo,
@@ -208,10 +208,10 @@ class Gametrailers(markdown.inlinepatterns.Pattern):
 
 class Metacafe(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://www.metacafe.com/fplayer/%s.swf' % m.group('metacafeid')
+        url = 'http://www.metacafe.com/embed/%s' % m.group('metacafeid')
         width = self.ext.config['metacafe_width'][0]
         height = self.ext.config['metacafe_height'][0]
-        return flash_object(url, width, height)
+        return render_iframe(url, width, height)
 
 
 class Veoh(markdown.inlinepatterns.Pattern):
