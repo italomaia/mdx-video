@@ -11,5 +11,4 @@ import markdown
 
 text = '...'
 html = markdown.markdown(text, extensions=['video'])
-
- ```
+```
