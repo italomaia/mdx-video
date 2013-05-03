@@ -224,7 +224,7 @@ class Veoh(markdown.inlinepatterns.Pattern):
 
 class Vimeo(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://player.vimeo.com/video/%s?color=a8a8a8' % m.group('vimeoid')
+        url = 'http://player.vimeo.com/video/%s' % m.group('vimeoid')
         width = self.ext.config['vimeo_width'][0]
         height = self.ext.config['vimeo_height'][0]
         return render_iframe(url, width, height)
