@@ -166,7 +166,7 @@ class VideoExtension(markdown.Extension):
         self.add_inline(md, 'bliptv', Bliptv,
             r'([^(]|^)http://(\w+\.|)blip.tv/play/(?P<bliptvfile>\S+)')
         self.add_inline(md, 'dailymotion', Dailymotion,
-            r'([^(]|^)http://www\.dailymotion\.com/(?P<dailymotionid>\S+)')
+            r'([^(]|^)http://www\.dailymotion\.com/video/(?P<dailymotionid>[^_]+)_.*')
         self.add_inline(md, 'gametrailers', Gametrailers,
             r'([^(]|^)http://www.gametrailers.com/video/[a-z0-9-]+/(?P<gametrailersid>\d+)')
         self.add_inline(md, 'metacafe', Metacafe,
@@ -191,10 +191,10 @@ class Bliptv(markdown.inlinepatterns.Pattern):
 
 class Dailymotion(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://www.dailymotion.com/swf/%s' % m.group('dailymotionid').split('/')[-1]
+        url = 'http://www.dailymotion.com/embed/video/%s' % m.group('dailymotionid')
         width = self.ext.config['dailymotion_width'][0]
         height = self.ext.config['dailymotion_height'][0]
-        return flash_object(url, width, height)
+        return render_iframe(url, width, height)
 
 
 class Gametrailers(markdown.inlinepatterns.Pattern):
