@@ -25,7 +25,7 @@ The following video providers are supported:
  - Blip.tv
  - Metacafe
  - Veoh
- - GameTrailer
+ - GameTrailers
 
 
 Contribute
