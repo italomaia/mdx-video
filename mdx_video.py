@@ -130,6 +130,7 @@ u'<p><object data="http://www.gametrailers.com/remote_wrap.php?mid=58079" height
 import markdown
 from markdown.util import etree
 
+
 class VideoExtension(markdown.Extension):
     def __init__(self, configs):
         self.config = {
@@ -165,19 +166,20 @@ class VideoExtension(markdown.Extension):
         self.add_inline(md, 'bliptv', Bliptv,
             r'([^(]|^)http://(\w+\.|)blip.tv/play/(?P<bliptvfile>\S+)')
         self.add_inline(md, 'dailymotion', Dailymotion,
-            r'([^(]|^)http://www\.dailymotion\.com/(?P<dailymotionid>\S+)')
+            r'([^(]|^)http://www\.dailymotion\.com/video/(?P<dailymotionid>[^_]+)_.*')
         self.add_inline(md, 'gametrailers', Gametrailers,
             r'([^(]|^)http://www.gametrailers.com/video/[a-z0-9-]+/(?P<gametrailersid>\d+)')
         self.add_inline(md, 'metacafe', Metacafe,
-            r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>\S+)/')
+            r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>[^/]+)/[^/]+/')
         self.add_inline(md, 'veoh', Veoh,
             r'([^(]|^)http://www\.veoh\.com/\S*(#watch%3D|watch/)(?P<veohid>\w+)')
         self.add_inline(md, 'vimeo', Vimeo,
             r'([^(]|^)http://(www.|)vimeo\.com/(?P<vimeoid>\d+)\S*')
         self.add_inline(md, 'yahoo', Yahoo,
-            r'([^(]|^)http://video\.yahoo\.com/watch/(?P<yahoovid>\d+)/(?P<yahooid>\d+)')
+            r'([^(]|^)http://screen\.yahoo\.com/.+/?')
         self.add_inline(md, 'youtube', Youtube,
-            r'([^(]|^)http://www\.youtube\.com/watch\?\S*v=(?P<youtubeargs>[A-Za-z0-9_&=-]+)\S*')
+            r'([^(]|^)https?://www\.youtube\.com/watch\?\S*v=(?P<youtubeargs>[A-Za-z0-9_&=-]+)\S*')
+
 
 class Bliptv(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
@@ -186,12 +188,14 @@ class Bliptv(markdown.inlinepatterns.Pattern):
         height = self.ext.config['bliptv_height'][0]
         return render_iframe(url, width, height)
 
+
 class Dailymotion(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://www.dailymotion.com/swf/%s' % m.group('dailymotionid').split('/')[-1]
+        url = 'http://www.dailymotion.com/embed/video/%s' % m.group('dailymotionid')
         width = self.ext.config['dailymotion_width'][0]
         height = self.ext.config['dailymotion_height'][0]
-        return flash_object(url, width, height)
+        return render_iframe(url, width, height)
+
 
 class Gametrailers(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
@@ -201,12 +205,14 @@ class Gametrailers(markdown.inlinepatterns.Pattern):
         height = self.ext.config['gametrailers_height'][0]
         return flash_object(url, width, height)
 
+
 class Metacafe(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://www.metacafe.com/fplayer/%s.swf' % m.group('metacafeid')
+        url = 'http://www.metacafe.com/embed/%s' % m.group('metacafeid')
         width = self.ext.config['metacafe_width'][0]
         height = self.ext.config['metacafe_height'][0]
-        return flash_object(url, width, height)
+        return render_iframe(url, width, height)
+
 
 class Veoh(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
@@ -215,25 +221,22 @@ class Veoh(markdown.inlinepatterns.Pattern):
         height = self.ext.config['veoh_height'][0]
         return flash_object(url, width, height)
 
+
 class Vimeo(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://player.vimeo.com/video/%s?color=a8a8a8' % m.group('vimeoid')
+        url = 'http://player.vimeo.com/video/%s' % m.group('vimeoid')
         width = self.ext.config['vimeo_width'][0]
         height = self.ext.config['vimeo_height'][0]
         return render_iframe(url, width, height)
 
+
 class Yahoo(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = "http://d.yimg.com/static.video.yahoo.com/yep/YV_YEP.swf?ver=2.2.40"
+        url = m.string + '?format=embed&player_autoplay=false'
         width = self.ext.config['yahoo_width'][0]
         height = self.ext.config['yahoo_height'][0]
-        obj = flash_object(url, width, height)
-        param = etree.Element('param')
-        param.set('name', 'flashVars')
-        param.set('value', "id=%s&vid=%s" % (m.group('yahooid'),
-                m.group('yahoovid')))
-        obj.append(param)
-        return obj
+        return render_iframe(url, width, height)
+
 
 class Youtube(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
