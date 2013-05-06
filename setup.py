@@ -7,6 +7,6 @@ setup(
 	version=version,
 	description="Markdown 2.0 extension for easy video embedding",
 	author="Tyler Lesmann, Italo Maia, Rafael Canovas",
-	url="https://github.com/mstrcnvs/mdx-video",
+	url="https://github.com/italomaia/mdx-video",
 	py_modules=["mdx_video"]
 )
