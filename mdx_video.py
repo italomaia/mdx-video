@@ -39,7 +39,7 @@ class VideoExtension(markdown.Extension):
         self.add_inline(md, 'bliptv', Bliptv,
             r'([^(]|^)http://(\w+\.|)blip.tv/play/(?P<bliptvfile>\S+)')
         self.add_inline(md, 'dailymotion', Dailymotion,
-            r'([^(]|^)http://www\.dailymotion\.com/video/(?P<dailymotionid>[^_]+)_.*')
+            r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[^_]+)_.*')
         self.add_inline(md, 'gametrailers', Gametrailers,
             r'([^(]|^)http://www.gametrailers.com/video/[a-z0-9-]+/(?P<gametrailersid>\d+)')
         self.add_inline(md, 'metacafe', Metacafe,
