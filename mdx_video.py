@@ -9,8 +9,6 @@ class VideoExtension(markdown.Extension):
         self.config = {
             'dailymotion_width': ['480', 'Width for Dailymotion videos'],
             'dailymotion_height': ['405', 'Height for Dailymotion videos'],
-            'gametrailers_width': ['480', 'Width for Gametrailers videos'],
-            'gametrailers_height': ['392', 'Height for Gametrailers videos'],
             'metacafe_width': ['498', 'Width for Metacafe videos'],
             'metacafe_height': ['423', 'Height for Metacafe videos'],
             'veoh_width': ['410', 'Width for Veoh videos'],
@@ -36,8 +34,6 @@ class VideoExtension(markdown.Extension):
     def extendMarkdown(self, md, md_globals):
         self.add_inline(md, 'dailymotion', Dailymotion,
             r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[^_]+)_.*')
-        self.add_inline(md, 'gametrailers', Gametrailers,
-            r'([^(]|^)http://www.gametrailers.com/video/[a-z0-9-]+/(?P<gametrailersid>\d+)')
         self.add_inline(md, 'metacafe', Metacafe,
             r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>[^/]+)/[^/]+/')
         self.add_inline(md, 'veoh', Veoh,
@@ -56,15 +52,6 @@ class Dailymotion(markdown.inlinepatterns.Pattern):
         width = self.ext.config['dailymotion_width'][0]
         height = self.ext.config['dailymotion_height'][0]
         return render_iframe(url, width, height)
-
-
-class Gametrailers(markdown.inlinepatterns.Pattern):
-    def handleMatch(self, m):
-        url = 'http://www.gametrailers.com/remote_wrap.php?mid=%s' % \
-            m.group('gametrailersid').split('/')[-1]
-        width = self.ext.config['gametrailers_width'][0]
-        height = self.ext.config['gametrailers_height'][0]
-        return flash_object(url, width, height)
 
 
 class Metacafe(markdown.inlinepatterns.Pattern):

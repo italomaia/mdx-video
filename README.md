@@ -24,8 +24,6 @@ The following video providers are supported:
  - Dailymotion
  - Metacafe
  - Veoh
- - GameTrailers
-
 
 Contribute
 ----------
