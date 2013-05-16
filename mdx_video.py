@@ -9,8 +9,8 @@ class VideoExtension(markdown.Extension):
         self.config = {
             'dailymotion_width': ['480', 'Width for Dailymotion videos'],
             'dailymotion_height': ['405', 'Height for Dailymotion videos'],
-            'metacafe_width': ['498', 'Width for Metacafe videos'],
-            'metacafe_height': ['423', 'Height for Metacafe videos'],
+            'metacafe_width': ['440', 'Width for Metacafe videos'],
+            'metacafe_height': ['248', 'Height for Metacafe videos'],
             'veoh_width': ['410', 'Width for Veoh videos'],
             'veoh_height': ['341', 'Height for Veoh videos'],
             'vimeo_width': ['400', 'Width for Vimeo videos'],
@@ -35,7 +35,7 @@ class VideoExtension(markdown.Extension):
         self.add_inline(md, 'dailymotion', Dailymotion,
             r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[^_]+)_.*')
         self.add_inline(md, 'metacafe', Metacafe,
-            r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>[^/]+)/[^/]+/')
+            r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>\d+)/?(:?.+/?)')
         self.add_inline(md, 'veoh', Veoh,
             r'([^(]|^)http://www\.veoh\.com/\S*(#watch%3D|watch/)(?P<veohid>\w+)')
         self.add_inline(md, 'vimeo', Vimeo,
@@ -56,7 +56,7 @@ class Dailymotion(markdown.inlinepatterns.Pattern):
 
 class Metacafe(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://www.metacafe.com/embed/%s' % m.group('metacafeid')
+        url = 'http://www.metacafe.com/embed/%s/' % m.group('metacafeid')
         width = self.ext.config['metacafe_width'][0]
         height = self.ext.config['metacafe_height'][0]
         return render_iframe(url, width, height)
