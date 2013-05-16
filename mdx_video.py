@@ -8,7 +8,7 @@ class VideoExtension(markdown.Extension):
     def __init__(self, configs):
         self.config = {
             'dailymotion_width': ['480', 'Width for Dailymotion videos'],
-            'dailymotion_height': ['405', 'Height for Dailymotion videos'],
+            'dailymotion_height': ['270', 'Height for Dailymotion videos'],
             'metacafe_width': ['440', 'Width for Metacafe videos'],
             'metacafe_height': ['248', 'Height for Metacafe videos'],
             'veoh_width': ['410', 'Width for Veoh videos'],
