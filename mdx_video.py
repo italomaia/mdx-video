@@ -43,7 +43,7 @@ class VideoExtension(markdown.Extension):
         self.add_inline(md, 'yahoo', Yahoo,
             r'([^(]|^)http://screen\.yahoo\.com/.+/?')
         self.add_inline(md, 'youtube', Youtube,
-            r'([^(]|^)https?://www\.youtube\.com/watch\?\S*v=(?P<youtubeargs>[A-Za-z0-9_&=-]+)\S*')
+            r'([^(]|^)https?://www\.youtube\.com/watch\?v=(?P<youtubeid>\S[^&/]+)')
 
 
 class Dailymotion(markdown.inlinepatterns.Pattern):
@@ -88,7 +88,7 @@ class Yahoo(markdown.inlinepatterns.Pattern):
 
 class Youtube(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = 'http://www.youtube.com/embed/%s' % m.group('youtubeargs')
+        url = 'http://www.youtube.com/embed/%s' % m.group('youtubeid')
         width = self.ext.config['youtube_width'][0]
         height = self.ext.config['youtube_height'][0]
         return render_iframe(url, width, height)
