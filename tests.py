@@ -14,7 +14,7 @@ PROVIDERS = {
     "veoh": "http://www.veoh.com/watch/v352792842YDSmD5N",
     "vimeo": "http://vimeo.com/43332921",
     "yahoo": "http://screen.yahoo.com/mansome-169-ultimate-dj-party-040000302.html",
-    "youtube": "http://www.youtube.com/watch?v=mFi2B8nYdhc",
+    "youtube": "https://www.youtube.com/watch?feature=player_embedded&v=9UwOrl036_A",
     "youtube_short": "http://youtu.be/QH2-TGUlwu4",
 }
 

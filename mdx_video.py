@@ -43,7 +43,7 @@ class VideoExtension(markdown.Extension):
         self.add_inline(md, 'yahoo', Yahoo,
             r'([^(]|^)http://screen\.yahoo\.com/.+/?')
         self.add_inline(md, 'youtube', Youtube,
-            r'([^(]|^)https?://www\.youtube\.com/watch\?v=(?P<youtubeid>\S[^&/]+)')
+            r'([^(]|^)https?://www\.youtube\.com/watch\?\S*v=(?P<youtubeid>\S[^&/]+)')
         self.add_inline(md, 'youtube_short', Youtube,
             r'([^(]|^)https?://youtu\.be/(?P<youtubeid>\S[^?&/]+)?')
 
