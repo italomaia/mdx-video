@@ -13,12 +13,12 @@ class VideoExtension(markdown.Extension):
             'metacafe_height': ['248', 'Height for Metacafe videos'],
             'veoh_width': ['410', 'Width for Veoh videos'],
             'veoh_height': ['341', 'Height for Veoh videos'],
-            'vimeo_width': ['400', 'Width for Vimeo videos'],
-            'vimeo_height': ['321', 'Height for Vimeo videos'],
-            'yahoo_width': ['512', 'Width for Yahoo! videos'],
-            'yahoo_height': ['322', 'Height for Yahoo! videos'],
-            'youtube_width': ['425', 'Width for Youtube videos'],
-            'youtube_height': ['344', 'Height for Youtube videos'],
+            'vimeo_width': ['500', 'Width for Vimeo videos'],
+            'vimeo_height': ['281', 'Height for Vimeo videos'],
+            'yahoo_width': ['624', 'Width for Yahoo! videos'],
+            'yahoo_height': ['351', 'Height for Yahoo! videos'],
+            'youtube_width': ['560', 'Width for Youtube videos'],
+            'youtube_height': ['315', 'Height for Youtube videos'],
         }
 
         # Override defaults with user settings
