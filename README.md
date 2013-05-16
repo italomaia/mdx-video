@@ -22,7 +22,6 @@ The following video providers are supported:
  - Vimeo
  - Yahoo Video
  - Dailymotion
- - Blip.tv
  - Metacafe
  - Veoh
  - GameTrailers

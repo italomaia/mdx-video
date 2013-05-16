@@ -7,8 +7,6 @@ from markdown.util import etree
 class VideoExtension(markdown.Extension):
     def __init__(self, configs):
         self.config = {
-            'bliptv_width': ['480', 'Width for Blip.tv videos'],
-            'bliptv_height': ['300', 'Height for Blip.tv videos'],
             'dailymotion_width': ['480', 'Width for Dailymotion videos'],
             'dailymotion_height': ['405', 'Height for Dailymotion videos'],
             'gametrailers_width': ['480', 'Width for Gametrailers videos'],
@@ -36,8 +34,6 @@ class VideoExtension(markdown.Extension):
         md.inlinePatterns.add(name, pattern, "<reference")
 
     def extendMarkdown(self, md, md_globals):
-        self.add_inline(md, 'bliptv', Bliptv,
-            r'([^(]|^)http://(\w+\.|)blip.tv/play/(?P<bliptvfile>\S+)')
         self.add_inline(md, 'dailymotion', Dailymotion,
             r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[^_]+)_.*')
         self.add_inline(md, 'gametrailers', Gametrailers,
@@ -52,14 +48,6 @@ class VideoExtension(markdown.Extension):
             r'([^(]|^)http://screen\.yahoo\.com/.+/?')
         self.add_inline(md, 'youtube', Youtube,
             r'([^(]|^)https?://www\.youtube\.com/watch\?\S*v=(?P<youtubeargs>[A-Za-z0-9_&=-]+)\S*')
-
-
-class Bliptv(markdown.inlinepatterns.Pattern):
-    def handleMatch(self, m):
-        url = 'http://blip.tv/play/%s' % m.group('bliptvfile')
-        width = self.ext.config['bliptv_width'][0]
-        height = self.ext.config['bliptv_height'][0]
-        return render_iframe(url, width, height)
 
 
 class Dailymotion(markdown.inlinepatterns.Pattern):

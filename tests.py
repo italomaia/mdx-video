@@ -11,7 +11,6 @@ TESTS_DIR = os.path.join(BASE_DIR, 'tests')
 PROVIDERS = {
     "youtube": "http://www.youtube.com/watch?v=mFi2B8nYdhc",
     "vimeo": "http://vimeo.com/43332921",
-    "bliptv": "http://blip.tv/play/AYOBwHQC.x",
     "veoh": "http://www.veoh.com/watch/v352792842YDSmD5N",
     "metacafe": "http://www.metacafe.com/watch/9168343/playstation_3_super_slim_250gb_game_of_the_year_edition_unboxing_unbox_therapy_extras/",
     "dailymotion": "http://www.dailymotion.com/video/xostx9_nyan-cat-original_music?search_algo=2#.UYMMO0kyY0g",
