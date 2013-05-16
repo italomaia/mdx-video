@@ -15,6 +15,7 @@ PROVIDERS = {
     "vimeo": "http://vimeo.com/43332921",
     "yahoo": "http://screen.yahoo.com/mansome-169-ultimate-dj-party-040000302.html",
     "youtube": "http://www.youtube.com/watch?v=mFi2B8nYdhc",
+    "youtube_short": "http://youtu.be/QH2-TGUlwu4",
 }
 
 if not os.path.exists(TESTS_DIR):

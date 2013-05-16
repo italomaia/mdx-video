@@ -44,6 +44,8 @@ class VideoExtension(markdown.Extension):
             r'([^(]|^)http://screen\.yahoo\.com/.+/?')
         self.add_inline(md, 'youtube', Youtube,
             r'([^(]|^)https?://www\.youtube\.com/watch\?v=(?P<youtubeid>\S[^&/]+)')
+        self.add_inline(md, 'youtube_short', Youtube,
+            r'([^(]|^)https?://youtu\.be/(?P<youtubeid>\S[^?&/]+)?')
 
 
 class Dailymotion(markdown.inlinepatterns.Pattern):
