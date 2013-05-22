@@ -2,40 +2,35 @@
 
 import os
 import markdown
-from mdx_video import VideoExtension
 import unittest
+from mdx_video import VideoExtension
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-OUTPUT_DIR = os.path.join(BASE_DIR, 'output')
-base_filename = os.path.join(BASE_DIR, 'output/base.html')
+TESTS_DIR = os.path.join(BASE_DIR, 'tests')
 
-video_providers = {
-    "youtube": "http://www.youtube.com/watch?v=mFi2B8nYdhc",
-    "vimeo": "http://vimeo.com/43332921",
-    "bliptv": "http://blip.tv/play/AYOBwHQC.x",
-    "veoh": "http://www.veoh.com/watch/v352792842YDSmD5N",
+PROVIDERS = {
+    "dailymotion": "http://www.dailymotion.com/video/xostx9_nyan-cat-original_music?search_algo=2#.UYMMO0kyY0g",
     "metacafe": "http://www.metacafe.com/watch/9168343/playstation_3_super_slim_250gb_game_of_the_year_edition_unboxing_unbox_therapy_extras/",
+    "veoh": "http://www.veoh.com/watch/v352792842YDSmD5N",
+    "vimeo": "http://vimeo.com/43332921",
+    "yahoo": "http://screen.yahoo.com/mansome-169-ultimate-dj-party-040000302.html",
+    "youtube": "https://www.youtube.com/watch?feature=player_embedded&v=9UwOrl036_A",
+    "youtube_short": "http://youtu.be/QH2-TGUlwu4",
 }
 
-if not os.path.exists(OUTPUT_DIR):
-    os.mkdir(OUTPUT_DIR)
+if not os.path.exists(TESTS_DIR):
+    os.mkdir(TESTS_DIR)
 
-with open(base_filename) as file:
-    html_text = file.read()
 
 class MDTestCase(unittest.TestCase):
-    def build_example(self, name, url):
-        filename = "output/%s.html" % name
-        output = markdown.markdown(url, extensions=['video'])
+    def test_providers(self):
+        for name, url in PROVIDERS.items():
+            filename = name + '.html'
+            output = markdown.markdown(url, extensions=[VideoExtension({})])
 
-        with open(os.path.join(BASE_DIR, filename), 'w') as file:
-            file.write(html_text % {'content':output})
+            with open(os.path.join(TESTS_DIR, filename), 'w') as f:
+                f.write(output)
 
-
-class TestVideoRendering(MDTestCase):
-    def test_build_examples(self):
-        for name, url in video_providers.items():
-            self.build_example(name, url)
 
 if __name__ == '__main__':
     unittest.main()
