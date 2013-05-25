@@ -1,6 +1,7 @@
 dist
 build
 output
+tests
 MANIFEST
 .idea
 *.sublime-*
