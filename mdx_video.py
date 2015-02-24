@@ -5,7 +5,7 @@ from markdown.util import etree
 
 
 class VideoExtension(markdown.Extension):
-    def __init__(self, configs):
+    def __init__(self, **kwargs):
         self.config = {
             'dailymotion_width': ['480', 'Width for Dailymotion videos'],
             'dailymotion_height': ['270', 'Height for Dailymotion videos'],
@@ -22,8 +22,9 @@ class VideoExtension(markdown.Extension):
         }
 
         # Override defaults with user settings
-        for key, value in configs:
-            self.setConfig(key, value)
+        if kwargs["configs"]:
+            for key, value in kwargs["configs"]:
+                self.setConfig(key, value)
 
     def add_inline(self, md, name, klass, re):
         pattern = klass(re)
