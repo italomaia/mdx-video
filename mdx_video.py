@@ -5,7 +5,7 @@ from markdown.util import etree
 
 
 class VideoExtension(markdown.Extension):
-    def __init__(self, configs):
+    def __init__(self, **kwargs):
         self.config = {
             'dailymotion_width': ['480', 'Width for Dailymotion videos'],
             'dailymotion_height': ['270', 'Height for Dailymotion videos'],
@@ -22,8 +22,9 @@ class VideoExtension(markdown.Extension):
         }
 
         # Override defaults with user settings
-        for key, value in configs:
-            self.setConfig(key, value)
+        if "configs" in kwargs:
+            for key, value in kwargs["configs"]:
+                self.setConfig(key, value)
 
     def add_inline(self, md, name, klass, re):
         pattern = klass(re)
@@ -33,7 +34,7 @@ class VideoExtension(markdown.Extension):
 
     def extendMarkdown(self, md, md_globals):
         self.add_inline(md, 'dailymotion', Dailymotion,
-            r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[a-z0-9]+)(_[\w\-]*)?')
+            r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[a-zA-Z0-9]+)(_[\w\-]*)?')
         self.add_inline(md, 'metacafe', Metacafe,
             r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>\d+)/?(:?.+/?)')
         self.add_inline(md, 'veoh', Veoh,
