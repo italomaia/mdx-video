@@ -1,9 +1,3 @@
-Contributors
-------------
- - Tyler Lesmann
- - Italo Maia
- - Rafael Canovas
-
 Usage
 -------
 ```python
