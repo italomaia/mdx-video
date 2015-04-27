@@ -34,7 +34,7 @@ class VideoExtension(markdown.Extension):
 
     def extendMarkdown(self, md, md_globals):
         self.add_inline(md, 'dailymotion', Dailymotion,
-            r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[a-z0-9]+)(_[\w\-]*)?')
+            r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[a-zA-Z0-9]+)(_[\w\-]*)?')
         self.add_inline(md, 'metacafe', Metacafe,
             r'([^(]|^)http://www\.metacafe\.com/watch/(?P<metacafeid>\d+)/?(:?.+/?)')
         self.add_inline(md, 'veoh', Veoh,
