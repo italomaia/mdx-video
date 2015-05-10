@@ -6,3 +6,4 @@ MANIFEST
 .idea
 *.sublime-*
 *.pyc
+*.egg-info
