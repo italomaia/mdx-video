@@ -22,7 +22,7 @@ class VideoExtension(markdown.Extension):
         }
 
         # Override defaults with user settings
-        if "configs" in kwargs:
+        if kwargs.get('configs', None):
             for key, value in kwargs["configs"]:
                 self.setConfig(key, value)
 
