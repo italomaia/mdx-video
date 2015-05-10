@@ -26,6 +26,9 @@ class MDTestCase(unittest.TestCase):
     def test_load_extension_as_string(self):
         markdown.markdown('', extensions=['mdx_video'])
 
+    def test_load_extension_as_string_alt_name(self):
+        markdown.markdown('', extensions=['video'])
+
     def test_load_extension_as_object(self):
         markdown.markdown('', extensions=[VideoExtension()])
 
