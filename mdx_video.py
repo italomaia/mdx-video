@@ -22,9 +22,8 @@ class VideoExtension(markdown.Extension):
         }
 
         # Override defaults with user settings
-        if kwargs.get('configs', None):
-            for key, value in kwargs["configs"]:
-                self.setConfig(key, value)
+        for key, value in kwargs.items():
+            self.setConfig(key, str(value))
 
     def add_inline(self, md, name, klass, re):
         pattern = klass(re)
@@ -124,8 +123,8 @@ def flash_object(url, width, height):
     return obj
 
 
-def makeExtension(configs=None):
-    return VideoExtension(configs=configs)
+def makeExtension(**kwargs):
+    return VideoExtension(**kwargs)
 
 
 if __name__ == "__main__":

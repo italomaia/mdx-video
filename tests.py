@@ -23,10 +23,22 @@ if not os.path.exists(TESTS_DIR):
 
 
 class MDTestCase(unittest.TestCase):
+    def test_load_extension_as_string(self):
+        markdown.markdown('', extensions=['mdx_video'])
+
+    def test_load_extension_as_object(self):
+        markdown.markdown('', extensions=[VideoExtension()])
+
+    def test_configs_parameter(self):
+        md = markdown.Markdown()
+        md.registerExtension(VideoExtension(youtube_width=800))
+        ext = md.registeredExtensions[0]
+        self.assertEqual(ext.config['youtube_width'][0], '800')
+
     def test_providers(self):
         for name, url in PROVIDERS.items():
             filename = name + '.html'
-            output = markdown.markdown(url, extensions=[VideoExtension({})])
+            output = markdown.markdown(url, extensions=[VideoExtension()])
 
             with open(os.path.join(TESTS_DIR, filename), 'w') as f:
                 f.write(output)
