@@ -4,7 +4,14 @@ Usage
 import markdown
 
 text = '...'
+# see http://pythonhosted.org//Markdown/reference.html#extension_configs for passing parameters
 html = markdown.markdown(text, extensions=['video'])
+# or
+from mdx_video import VideoExtension
+html = markdown.markdown(text, extensions=[VideoExtension(**params)])
+# or
+md = markdown.Markdown()
+md.registerExtension(VideoExtension(**params))
 ```
 
 Support
