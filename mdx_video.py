@@ -97,13 +97,16 @@ class Youtube(markdown.inlinepatterns.Pattern):
 
 
 def render_iframe(url, width, height):
+    div = etree.Element('div')
+    div.set('class', 'mdx-video-container')
     iframe = etree.Element('iframe')
-    iframe.set('width', width)
-    iframe.set('height', height)
     iframe.set('src', url)
     iframe.set('allowfullscreen', 'true')
+    iframe.set('webkitallowfullscreen', 'true')
+    iframe.set('mozallowfullscreen', 'true')
     iframe.set('frameborder', '0')
-    return iframe
+    div.append(iframe)
+    return div
 
 
 def flash_object(url, width, height):
