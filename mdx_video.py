@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
+from xml import etree
+
 import markdown
-from markdown.util import etree
 
 
 class VideoExtension(markdown.Extension):
