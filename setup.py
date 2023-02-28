@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.1.8'
+version = '0.2.0'
 
 setup(
     name='mdx_video',
@@ -8,5 +8,5 @@ setup(
     description="Python-Markdown extension for easy video embedding",
     author="Tyler Lesmann, Italo Maia, Rafael Canovas",
     py_modules=["mdx_video"],
-    install_requires=['markdown>=2.2'],
+    install_requires=['markdown>=3.0'],
 )
