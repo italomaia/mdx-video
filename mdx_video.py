@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
+from xml import etree
+
 import markdown
-from markdown.util import etree
 
 
 class VideoExtension(markdown.Extension):
@@ -26,12 +27,11 @@ class VideoExtension(markdown.Extension):
             self.setConfig(key, str(value))
 
     def add_inline(self, md, name, klass, re):
-        pattern = klass(re)
-        pattern.md = md
+        pattern = klass(re, md)
         pattern.ext = self
-        md.inlinePatterns.add(name, pattern, "<reference")
+        md.inlinePatterns.register(pattern, name, 20)
 
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md):
         self.add_inline(md, 'dailymotion', Dailymotion,
             r'([^(]|^)https?://www\.dailymotion\.com/video/(?P<dailymotionid>[a-zA-Z0-9]+)(_[\w\-]*)?')
         self.add_inline(md, 'metacafe', Metacafe,
